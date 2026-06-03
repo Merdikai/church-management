@@ -1,0 +1,26 @@
+{
+  "appName": "የቤተክርስቲያን አስተዳደር ስርዓት",
+  "login": "ግባ",
+  "register": "ተመዝገብ",
+  "forgotPassword": "የይለፍ ቃል ረሳሁ",
+  "email": "ኢሜይል",
+  "password": "የይለፍ ቃል",
+  "fullName": "ሙሉ ስም",
+  "confirmPassword": "የይለፍ ቃል አረጋግጥ",
+  "submit": "አስገባ",
+  "loading": "በመጫን ላይ...",
+  "noAccount": "መለያ የለዎትም?",
+  "hasAccount": "መለያ አለዎት?",
+  "forgotPasswordLink": "የይለፍ ቃልዎን ረሱ?",
+  "backToLogin": "ወደ መግቢያ ተመለስ",
+  "resetPassword": "የይለፍ ቃል ዳግም አስጀምር",
+  "resetSent": "የይለፍ ቃል ዳግም ማስጀመሪያ ኢሜይል ተልኳል!",
+  "errors": {
+    "emailRequired": "ኢሜይል ያስፈልጋል",
+    "passwordRequired": "የይለፍ ቃል ያስፈልጋል",
+    "fullNameRequired": "ሙሉ ስም ያስፈልጋል",
+    "passwordMismatch": "የይለፍ ቃሎቹ አይዛመዱም",
+    "passwordShort": "የይለፍ ቃል ቢያንስ 6 ቁምፊዎች መሆን አለበት",
+    "invalidEmail": "ትክክለኛ ኢሜይል ያስገቡ"
+  }
+}

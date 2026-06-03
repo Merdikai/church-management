@@ -1,0 +1,26 @@
+{
+  "appName": "Church Management System",
+  "login": "Login",
+  "register": "Register",
+  "forgotPassword": "Forgot Password",
+  "email": "Email",
+  "password": "Password",
+  "fullName": "Full Name",
+  "confirmPassword": "Confirm Password",
+  "submit": "Submit",
+  "loading": "Loading...",
+  "noAccount": "Don't have an account?",
+  "hasAccount": "Already have an account?",
+  "forgotPasswordLink": "Forgot your password?",
+  "backToLogin": "Back to login",
+  "resetPassword": "Reset Password",
+  "resetSent": "Password reset email sent! Check your inbox.",
+  "errors": {
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "fullNameRequired": "Full name is required",
+    "passwordMismatch": "Passwords do not match",
+    "passwordShort": "Password must be at least 6 characters",
+    "invalidEmail": "Please enter a valid email"
+  }
+}
