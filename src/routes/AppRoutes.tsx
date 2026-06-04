@@ -34,15 +34,17 @@ import NotFound from '../pages/NotFound/NotFound';
 export default function AppRoutes() {
   const { session, loading } = useAuth();
 
-  if (loading && session === null) {
+  if (loading) {
     return (
       <div style={{
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        background: '#1a1a2e',
+        color: 'white',
         fontSize: '1.2rem',
-        color: '#0f3460'
+        fontFamily: 'sans-serif'
       }}>
         Loading...
       </div>
@@ -52,8 +54,8 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public */}
-        <Route path="/" element={session ? <Navigate to="/dashboard" /> : <Home />} />
+        {/* Public routes — always available */}
+        <Route path="/" element={!session ? <Home /> : <Navigate to="/dashboard" />} />
         <Route path="/login" element={!session ? <Login /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!session ? <Register /> : <Navigate to="/dashboard" />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

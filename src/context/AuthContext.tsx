@@ -25,38 +25,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<RoleName | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Safety timeout to prevent infinite loading
+  // Safety timeout
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000);
+    const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
   async function fetchRole(userId: string): Promise<RoleName> {
-  try {
-    const { data, error } = await supabase
-      .from('team_roles')
-      .select('role')
-      .eq('user_id', userId)
-      .is('team_id', null)
-      .limit(1);
+    try {
+      const { data } = await supabase
+        .from('team_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .is('team_id', null)
+        .limit(1);
 
-    if (error || !data || data.length === 0) {
-      return 'member'; // Default to member silently
+      if (data && data.length > 0) {
+        const r = data[0].role;
+        if (r === 'admin' || r === 'leader' || r === 'member') return r;
+      }
+      return 'member';
+    } catch {
+      return 'member';
     }
-    const role = data[0].role;
-    if (role === 'admin' || role === 'leader' || role === 'member') {
-      return role;
-    }
-    return 'member';
-  } catch {
-    return 'member';
   }
-}
 
   useEffect(() => {
     let mounted = true;
 
-    // Initial session check
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!mounted) return;
       setSession(session);
@@ -67,35 +63,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setRole(r);
             setLoading(false);
           }
+        }).catch(() => {
+          if (mounted) {
+            setRole('member');
+            setLoading(false);
+          }
         });
       } else {
         setLoading(false);
       }
+    }).catch(() => {
+      if (mounted) {
+        setLoading(false);
+      }
     });
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         if (!mounted) return;
-        
-        // Immediately update session and user so routes react
         setSession(session);
         setUser(session?.user ?? null);
 
-        // On sign-out, clear everything immediately
         if (!session) {
           setRole(null);
           setLoading(false);
           return;
         }
 
-        // On sign-in, fetch role then finish loading
         if (session.user) {
-          const r = await fetchRole(session.user.id);
-          if (mounted) {
-            setRole(r);
-            setLoading(false);
+          try {
+            const r = await fetchRole(session.user.id);
+            if (mounted) setRole(r);
+          } catch {
+            if (mounted) setRole('member');
           }
+          if (mounted) setLoading(false);
         }
       }
     );
@@ -107,13 +109,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signOut = async () => {
-  setLoading(true);
-  await supabase.auth.signOut();
-  setRole(null);
-  setUser(null);
-  setSession(null);
-  setLoading(false);
-};
+    setLoading(true);
+    try {
+      await supabase.auth.signOut();
+    } catch {
+      // Ignore signout errors
+    }
+    setRole(null);
+    setUser(null);
+    setSession(null);
+    setLoading(false);
+  };
 
   return (
     <AuthContext.Provider value={{ session, user, role, loading, signOut }}>
