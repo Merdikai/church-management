@@ -38,31 +38,98 @@ export default function Navbar({ onMenuToggle }: Props) {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <button className="menu-toggle" onClick={onMenuToggle}><span /><span /><span /></button>
+        <button className="menu-toggle" onClick={onMenuToggle} aria-label="Toggle sidebar">
+          <span />
+          <span />
+          <span />
+        </button>
         <Link to="/dashboard" className="navbar-logo">
-          <span className="cross">✝</span>
-          <div><span>Church Management</span><small>System</small></div>
+          <div className="logo-icon">
+            <span className="cross">✝</span>
+          </div>
+          <div className="logo-text">
+            <span className="logo-title">Church Management</span>
+            <span className="logo-subtitle">System</span>
+          </div>
         </Link>
       </div>
 
       <div className="navbar-right">
         <div className="lang-switch">
-          <button className={i18n.language === 'en' ? 'active' : ''} onClick={() => i18n.changeLanguage('en')}>EN</button>
-          <button className={i18n.language === 'am' ? 'active' : ''} onClick={() => i18n.changeLanguage('am')}>አማ</button>
+          <button
+            className={`lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
+            onClick={() => i18n.changeLanguage('en')}
+          >
+            EN
+          </button>
+          <button
+            className={`lang-btn ${i18n.language === 'am' ? 'active' : ''}`}
+            onClick={() => i18n.changeLanguage('am')}
+          >
+            አማ
+          </button>
         </div>
+
         <NotificationBell />
+
         <div className="navbar-user" ref={dropdownRef}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }} onClick={() => setDropdownOpen(!dropdownOpen)}>
-            <div className="user-avatar">{initials}</div>
-            <div>
-              <div className="user-name">{fullName.split(' ')[0]}</div>
-              <span className={`user-role-badge badge-${role || 'member'}`}>{role || '...'}</span>
+          <div
+            className="user-trigger"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <div className="user-avatar">
+              <span>{initials}</span>
             </div>
+            <div className="user-info">
+              <span className="user-name">{fullName.split(' ')[0]}</span>
+              <span className={`user-role-badge badge-${role || 'member'}`}>
+                {role || 'member'}
+              </span>
+            </div>
+            <svg
+              className={`dropdown-arrow ${dropdownOpen ? 'open' : ''}`}
+              width="12"
+              height="8"
+              viewBox="0 0 12 8"
+              fill="none"
+            >
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </div>
+
           {dropdownOpen && (
             <div className="user-dropdown">
-              <Link to="/profile" onClick={() => setDropdownOpen(false)}>👤 My Profile</Link>
-              <button className="signout-btn" onClick={handleSignOut}>🚪 Sign Out</button>
+              <div className="dropdown-header">
+                <div className="dropdown-avatar">{initials}</div>
+                <div>
+                  <div className="dropdown-name">{fullName}</div>
+                  <div className="dropdown-email">{user?.email}</div>
+                </div>
+              </div>
+              <div className="dropdown-divider" />
+              <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                My Profile
+              </Link>
+              <Link to="/notifications" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+                Notifications
+              </Link>
+              <div className="dropdown-divider" />
+              <button className="dropdown-item signout-item" onClick={handleSignOut}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Sign Out
+              </button>
             </div>
           )}
         </div>

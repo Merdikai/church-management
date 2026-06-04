@@ -27,3 +27,12 @@ export async function markAllAsRead(userId: string) {
 
   return { error };
 }
+
+export async function deleteNotification(id: string) {
+  const { error } = await supabase
+    .from('notifications')
+    .delete()
+    .eq('id', id);
+
+  return { error };
+}

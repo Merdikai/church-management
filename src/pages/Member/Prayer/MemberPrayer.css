@@ -1,0 +1,311 @@
+/* ===== MEMBER PRAYER PAGE ===== */
+.member-prayer-page {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== TOAST ===== */
+.toast-message {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PRAYER TABS ===== */
+.prayer-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  background: rgba(0,0,0,0.03);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.prayer-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #888;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.prayer-tab:hover { color: #1a1a2e; }
+
+.prayer-tab.active {
+  background: white;
+  color: #1a1a2e;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.tab-count {
+  font-size: 0.7rem;
+  background: rgba(0,0,0,0.06);
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.prayer-tab.active .tab-count {
+  background: #8b5cf6;
+  color: white;
+}
+
+/* ===== PRAYER CARDS ===== */
+.prayer-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.prayer-card {
+  display: flex;
+  gap: 1rem;
+  background: white;
+  border-radius: 14px;
+  padding: 1.25rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.prayer-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.1);
+}
+
+.prayer-card.public {
+  border-left: 4px solid #8b5cf6;
+}
+
+.prayer-card.private {
+  border-left: 4px solid #f59e0b;
+  background: #fffdf7;
+}
+
+/* ===== PRAYER ICON ===== */
+.prayer-card-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: #f5f3ff;
+  color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prayer-card.private .prayer-card-icon {
+  background: #fff7ed;
+  color: #f59e0b;
+}
+
+/* ===== PRAYER CONTENT ===== */
+.prayer-card-content { flex: 1; min-width: 0; }
+
+.prayer-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.prayer-author {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.prayer-author-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.prayer-author-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: block;
+}
+
+.prayer-time {
+  font-size: 0.7rem;
+  color: #aaa;
+  display: block;
+}
+
+.visibility-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.visibility-badge.public { background: #f5f3ff; color: #7c3aed; }
+.visibility-badge.private { background: #fff7ed; color: #d97706; }
+
+.prayer-text {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.65;
+}
+
+.prayer-delete-btn {
+  position: absolute;
+  top: 0.75rem; right: 0.75rem;
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.15s;
+}
+
+.prayer-card:hover .prayer-delete-btn { opacity: 1; }
+.prayer-delete-btn:hover { background: #fef2f2; color: #ef4444; }
+
+/* ===== SKELETON ===== */
+.prayer-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.prayer-skeleton-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border-radius: 14px;
+}
+
+.skeleton-circle {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: #e5e7eb;
+  flex-shrink: 0;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-lines { flex: 1; }
+
+.skeleton-line {
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-line.short { width: 40%; }
+.skeleton-line.full { width: 100%; }
+
+@keyframes shimmer {
+  0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state { text-align: center; padding: 3rem 1.5rem; }
+.empty-icon { margin-bottom: 1rem; color: #ddd; }
+.empty-state h3 { font-size: 1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 0.35rem; }
+.empty-state p { font-size: 0.85rem; color: #999; margin-bottom: 1.25rem; }
+
+/* ===== BUTTONS ===== */
+.btn-prayer {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(139,92,246,0.25);
+}
+
+.btn-prayer:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(139,92,246,0.35);
+}
+
+.btn-prayer:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-primary { background: #1a1a2e; color: white; padding: 0.55rem 1.25rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; display: inline-flex; align-items: center; gap: 0.4rem; }
+.btn-primary:hover { background: #0f3460; }
+.btn-secondary { background: #f3f4f6; color: #374151; padding: 0.55rem 1.25rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; }
+.btn-secondary:hover { background: #e5e7eb; }
+.btn-danger { background: #fef2f2; color: #dc2626; padding: 0.55rem 1.25rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; }
+.btn-danger:hover { background: #fee2e2; }
+
+/* ===== MODAL ===== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 300; padding: 1rem; }
+.modal { background: white; border-radius: 16px; padding: 2rem; width: 100%; max-width: 500px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.modal-sm { max-width: 400px; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; cursor: pointer; color: #999; padding: 4px; border-radius: 6px; }
+.modal-close:hover { background: #f3f4f6; color: #333; }
+.modal h3 { font-size: 1.15rem; font-weight: 700; color: #1a1a2e; margin-bottom: 1.25rem; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: #555; margin-bottom: 0.4rem; }
+.form-group textarea, .form-group select { width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: 0.875rem; outline: none; font-family: inherit; background: #f9fafb; transition: all 0.2s; resize: vertical; }
+.form-group textarea:focus, .form-group select:focus { border-color: #8b5cf6; background: white; box-shadow: 0 0 0 3px rgba(139,92,246,0.1); }
+
+/* ===== PAGE HEADER ===== */
+.page-header { margin-bottom: 1.5rem; }
+.page-header-content { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.page-header h1 { font-size: 1.6rem; color: #1a1a2e; font-weight: 700; letter-spacing: -0.02em; }
+.page-header p { color: #777; margin-top: 0.25rem; font-size: 0.9rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767px) {
+  .page-header-content { flex-direction: column; }
+  .page-header-content .btn-prayer { width: 100%; justify-content: center; }
+  .prayer-card { flex-direction: column; gap: 0.75rem; }
+  .prayer-card-icon { align-self: flex-start; }
+  .prayer-delete-btn { opacity: 1; }
+}
