@@ -32,19 +32,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function fetchRole(userId: string): Promise<RoleName> {
+  try {
     const { data, error } = await supabase
       .from('team_roles')
       .select('role')
       .eq('user_id', userId)
       .is('team_id', null)
-      .single();
+      .limit(1);
 
-    if (error || !data) {
-      console.warn('Could not fetch role, defaulting to member', error);
-      return 'member';
+    if (error || !data || data.length === 0) {
+      return 'member'; // Default to member silently
     }
-    return data.role as RoleName;
+    const role = data[0].role;
+    if (role === 'admin' || role === 'leader' || role === 'member') {
+      return role;
+    }
+    return 'member';
+  } catch {
+    return 'member';
   }
+}
 
   useEffect(() => {
     let mounted = true;
@@ -100,12 +107,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    setRole(null);
-    setUser(null);
-    setSession(null);
-    setLoading(false);
-  };
+  setLoading(true);
+  await supabase.auth.signOut();
+  setRole(null);
+  setUser(null);
+  setSession(null);
+  setLoading(false);
+};
 
   return (
     <AuthContext.Provider value={{ session, user, role, loading, signOut }}>

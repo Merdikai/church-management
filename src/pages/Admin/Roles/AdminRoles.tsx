@@ -51,7 +51,7 @@ export default function AdminRoles() {
 
   function openRoleModal(member: Member) {
     setSelectedMember(member);
-    setSelectedRole(getMemberRole(member));
+    setSelectedRole(getMemberRole(member) as 'admin' | 'leader' | 'member');
     setShowRoleModal(true);
   }
 

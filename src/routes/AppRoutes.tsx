@@ -30,13 +30,10 @@ import ProfilePage from '../pages/Profile/Profile';
 import NotificationsPage from '../pages/Notifications/Notifications';
 import Home from '../pages/Home/Home';
 import NotFound from '../pages/NotFound/NotFound';
-import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 
 export default function AppRoutes() {
   const { session, loading } = useAuth();
 
-  // Only show loading on INITIAL load, not during sign-out
-  // This prevents the flash of "Loading..." during logout
   if (loading && session === null) {
     return (
       <div style={{
@@ -65,10 +62,10 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/login" />} />
 
         {/* Admin */}
-        <Route path="/admin/roles" element={session ? <AdminRoles /> : <Navigate to="/login" />} />
         <Route path="/admin" element={session ? <AdminDashboard /> : <Navigate to="/login" />} />
         <Route path="/admin/members" element={session ? <AdminMembers /> : <Navigate to="/login" />} />
         <Route path="/admin/teams" element={session ? <AdminTeams /> : <Navigate to="/login" />} />
+        <Route path="/admin/roles" element={session ? <AdminRoles /> : <Navigate to="/login" />} />
         <Route path="/admin/announcements" element={session ? <AdminAnnouncements /> : <Navigate to="/login" />} />
         <Route path="/admin/events" element={session ? <AdminEvents /> : <Navigate to="/login" />} />
         <Route path="/admin/reports" element={session ? <AdminReports /> : <Navigate to="/login" />} />

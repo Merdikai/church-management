@@ -31,9 +31,9 @@ export default function Navbar({ onMenuToggle }: Props) {
   }, []);
 
   async function handleSignOut(e: React.MouseEvent) {
-    e.stopPropagation();
-    setDropdownOpen(false);
-    await signOut();
+  e.stopPropagation();
+  setDropdownOpen(false);
+  await signOut();
     // Navigation to /login is handled automatically by AppRoutes (session becomes null)
   }
 
@@ -80,7 +80,7 @@ export default function Navbar({ onMenuToggle }: Props) {
             <div className="user-avatar">{initials}</div>
             <div>
               <div className="user-name">{fullName.split(' ')[0]}</div>
-              <span className={`user-role-badge badge-${role}`}>{role || 'unknown'}</span>
+              <span className={`user-role-badge badge-${role || 'member'}`}>{role || '...'}</span>
             </div>
           </div>
 

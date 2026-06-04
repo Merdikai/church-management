@@ -45,6 +45,7 @@ export async function deleteMember(id: string) {
 
   return { error };
 }
+
 export async function getMemberRoles(userId: string) {
   const { data, error } = await supabase
     .from('team_roles')
@@ -54,32 +55,61 @@ export async function getMemberRoles(userId: string) {
 }
 
 export async function assignRole(userId: string, role: 'admin' | 'leader' | 'member') {
+  // First delete any existing church-wide role
+  const { error: deleteError } = await supabase
+    .from('team_roles')
+    .delete()
+    .eq('user_id', userId)
+    .is('team_id', null);
+
+  if (deleteError) {
+    console.error('Delete failed:', deleteError);
+    return { data: null, error: deleteError };
+  }
+
+  // Insert the new role
   const { data, error } = await supabase
     .from('team_roles')
-    .upsert({ user_id: userId, team_id: null, role })
+    .insert({ user_id: userId, team_id: null, role })
     .select()
     .single();
+
   return { data, error };
 }
 
 export async function assignTeamLeader(userId: string, teamId: string) {
-  // Make them leader role
-  await supabase
-    .from('team_roles')
-    .upsert({ user_id: userId, team_id: null, role: 'leader' });
+  // Update church-wide role to leader
+  await assignRole(userId, 'leader');
 
   // Assign as leader of the specific team
-  const { error } = await supabase
+  const { error: teamError } = await supabase
     .from('teams')
     .update({ leader_id: userId })
     .eq('id', teamId);
 
-  // Add to team_members if not already
-  await supabase
-    .from('team_members')
-    .upsert({ user_id: userId, team_id: teamId });
+  if (teamError) return { error: teamError };
 
-  return { error };
+  // Only insert if not already a member
+  const { data: existing, error: checkError } = await supabase
+    .from('team_members')
+    .select('id')
+    .eq('user_id', userId)
+    .eq('team_id', teamId);
+
+  if (checkError) return { error: checkError };
+
+  if (!existing || existing.length === 0) {
+    const { error: insertError } = await supabase
+      .from('team_members')
+      .insert({ user_id: userId, team_id: teamId });
+    
+    // Ignore 409 conflict (row already exists due to race condition)
+    if (insertError && insertError.code !== '23505') {
+      return { error: insertError };
+    }
+  }
+
+  return { error: null };
 }
 
 export async function removeTeamLeader(teamId: string) {
@@ -90,10 +120,7 @@ export async function removeTeamLeader(teamId: string) {
     .single();
 
   if (team?.leader_id) {
-    // Downgrade their role to member
-    await supabase
-      .from('team_roles')
-      .upsert({ user_id: team.leader_id, team_id: null, role: 'member' });
+    await assignRole(team.leader_id, 'member');
   }
 
   const { error } = await supabase

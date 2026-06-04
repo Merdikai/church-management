@@ -1,4 +1,4 @@
-import { RoleName } from '../types/Role';
+import type { RoleName } from '../types/Role';
 
 export function isAdmin(role: RoleName): boolean {
   return role === 'admin';
