@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Layout from '../../../components/Layout/Layout';
 import { useAuth } from '../../../context/AuthContext';
 import { getAllEvents, createEvent, deleteEvent } from '../../../services/eventService';
-import { formatDate } from '../../../utils/helpers';
 import '../AdminDashboard.css';
 
 interface Event {

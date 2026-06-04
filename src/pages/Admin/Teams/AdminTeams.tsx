@@ -84,15 +84,7 @@ export default function AdminTeams() {
     loadData();
   }
 
-  async function handleDelete(teamId: string) {
-    const { error } = await import('../../../services/teamService').then(m => {
-      return { error: null }; // Delete not in service, keeping safe
-    });
-    setShowDeleteConfirm(null);
-    setMessage('✅ Team deleted');
-    setTimeout(() => setMessage(''), 3000);
-    loadData();
-  }
+
 
   const filteredTeams = teams.filter(t =>
     t.name.toLowerCase().includes(search.toLowerCase())
@@ -362,7 +354,6 @@ export default function AdminTeams() {
             </p>
             <div className="modal-actions">
               <button className="btn btn-secondary" onClick={() => setShowDeleteConfirm(null)}>Cancel</button>
-              <button className="btn btn-danger" onClick={() => handleDelete(showDeleteConfirm)}>Delete</button>
             </div>
           </div>
         </div>
