@@ -13,14 +13,17 @@ export default function Dashboard() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        background: '#1a1a2e',
+        color: 'white',
         fontSize: '1.2rem',
-        color: '#0f3460'
+        fontFamily: 'sans-serif'
       }}>
         Loading...
       </div>
     );
   }
 
+  // Now role is definitely loaded
   if (role === 'admin') return <Navigate to="/admin" />;
   if (role === 'leader') return <Navigate to="/leader" />;
   return <Navigate to="/member" />;

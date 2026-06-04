@@ -15,15 +15,43 @@ export default function MemberDashboard() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => {
+    loadData().catch(() => setError(true));
+  }, []);
 
   async function loadData() {
     setLoading(true);
-    const [annRes, evRes] = await Promise.all([getAnnouncements(), getAllEvents()]);
-    if (annRes.data) setAnnouncements(annRes.data.slice(0, 3));
-    if (evRes.data) setEvents(evRes.data.filter((e: Event) => new Date(e.event_date) >= new Date()).slice(0, 3));
+    setError(false);
+    try {
+      const [annRes, evRes] = await Promise.all([
+        getAnnouncements(),
+        getAllEvents(),
+      ]);
+      if (annRes.data) setAnnouncements(annRes.data.slice(0, 3));
+      if (evRes.data) setEvents(evRes.data.filter((e: Event) => new Date(e.event_date) >= new Date()).slice(0, 3));
+    } catch {
+      setError(true);
+    }
     setLoading(false);
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <div className="admin-page">
+          <div className="page-header">
+            <h1>Welcome, {fullName} 👋</h1>
+            <p>Stay connected with your church community.</p>
+          </div>
+          <div className="empty-state">
+            <div className="empty-icon">⚠️</div>
+            <p>Could not load dashboard data. Please refresh.</p>
+          </div>
+        </div>
+      </Layout>
+    );
   }
 
   return (

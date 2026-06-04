@@ -11,10 +11,10 @@ const adminLinks = [
   { to: '/admin', icon: '🏠', label: 'Dashboard' },
   { to: '/admin/members', icon: '👥', label: 'Members' },
   { to: '/admin/teams', icon: '⛪', label: 'Teams' },
+  { to: '/admin/roles', icon: '👑', label: 'Roles' },
   { to: '/admin/announcements', icon: '📢', label: 'Announcements' },
   { to: '/admin/events', icon: '📅', label: 'Events' },
   { to: '/admin/reports', icon: '📊', label: 'Reports' },
-  { to: '/admin/roles', icon: '👑', label: 'Roles' },
 ];
 
 const leaderLinks = [
@@ -35,11 +35,13 @@ const memberLinks = [
 
 const sharedLinks = [
   { to: '/profile', icon: '👤', label: 'My Profile' },
+  { to: '/notifications', icon: '🔔', label: 'Notifications' },
 ];
 
 export default function Sidebar({ isOpen, onClose }: Props) {
   const { role } = useAuth();
 
+  // Default to member links if role is null (loading)
   const links =
     role === 'admin' ? adminLinks :
     role === 'leader' ? leaderLinks :
@@ -47,10 +49,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
 
   return (
     <>
-      <div
-        className={`sidebar-overlay ${isOpen ? 'visible' : ''}`}
-        onClick={onClose}
-      />
+      <div className={`sidebar-overlay ${isOpen ? 'visible' : ''}`} onClick={onClose} />
       <aside className={`sidebar ${isOpen ? 'open' : 'collapsed'}`}>
         <div className="sidebar-section">
           <div className="sidebar-section-title">Main Menu</div>
@@ -59,9 +58,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
               key={link.to}
               to={link.to}
               end
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? 'active' : ''}`
-              }
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
               onClick={onClose}
             >
               <span className="icon">{link.icon}</span>
@@ -77,9 +74,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
               key={link.to}
               to={link.to}
               end
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? 'active' : ''}`
-              }
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
               onClick={onClose}
             >
               <span className="icon">{link.icon}</span>
