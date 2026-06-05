@@ -75,8 +75,8 @@ export default function Home() {
           Built for Ethiopian Churches
         </div>
         <h1 className="home-title">
-          Manage Your Church
-          <span className="home-title-highlight"> Beautifully</span>
+          ...EECMY Bethel Anfo...
+          <span className="home-title-highlight">   Mekane Yesus</span>
         </h1>
         <p className="home-subtitle">
           A complete church management platform to connect your community, 
@@ -84,7 +84,7 @@ export default function Home() {
         </p>
         <div className="home-buttons">
           <Link to="/register" className="home-btn home-btn-primary">
-            Get Started Free
+            Get Started 
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>

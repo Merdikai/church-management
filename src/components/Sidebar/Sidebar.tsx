@@ -16,6 +16,7 @@ const adminLinks = [
   { to: '/admin/announcements', label: 'Announcements', icon: 'announcements' },
   { to: '/admin/events', label: 'Events', icon: 'events' },
   { to: '/admin/reports', label: 'Reports', icon: 'reports' },
+  { to: '/admin/site-settings', icon: '🌐', label: 'Site Settings' },
 ];
 
 const leaderLinks = [
@@ -140,8 +141,8 @@ export default function Sidebar({ isOpen, onClose }: Props) {
         <div className="sidebar-brand">
           <div className="sidebar-brand-icon">✝</div>
           <div>
-            <div className="sidebar-brand-title">CMS</div>
-            <div className="sidebar-brand-subtitle">Church Management</div>
+            <div className="sidebar-brand-title">Bethel Anfo</div>
+            <div className="sidebar-brand-subtitle">EECMY Management</div>
           </div>
         </div>
 

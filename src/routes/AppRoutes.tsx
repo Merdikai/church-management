@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+import PublicHome from '../pages/Public/PublicHome';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import ForgotPassword from '../pages/Auth/ForgotPassword';
@@ -12,6 +13,7 @@ import AdminRoles from '../pages/Admin/Roles/AdminRoles';
 import AdminAnnouncements from '../pages/Admin/Announcements/AdminAnnouncements';
 import AdminEvents from '../pages/Admin/Events/AdminEvents';
 import AdminReports from '../pages/Admin/Reports/AdminReports';
+import AdminSiteSettings from '../pages/Admin/SiteSettings/AdminSiteSettings';
 import TeamLeaderDashboard from '../pages/TeamLeader/TeamLeaderDashboard';
 import LeaderMembers from '../pages/TeamLeader/Members/LeaderMembers';
 import LeaderAnnouncements from '../pages/TeamLeader/Announcements/LeaderAnnouncements';
@@ -24,7 +26,7 @@ import MemberEvents from '../pages/Member/Events/MemberEvents';
 import MemberPrayer from '../pages/Member/Prayer/MemberPrayer';
 import ProfilePage from '../pages/Profile/Profile';
 import NotificationsPage from '../pages/Notifications/Notifications';
-import Home from '../pages/Home/Home';
+//import Home from '../pages/Home/Home';
 import NotFound from '../pages/NotFound/NotFound';
 
 export default function AppRoutes() {
@@ -54,7 +56,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       {/* Public */}
-      <Route path="/" element={!session ? <Home /> : <Navigate to="/dashboard" />} />
+      <Route path="/" element={!session ? <PublicHome /> : <Navigate to="/dashboard" />} />
       <Route path="/login" element={!session ? <Login /> : <Navigate to="/dashboard" />} />
       <Route path="/register" element={!session ? <Register /> : <Navigate to="/dashboard" />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -68,6 +70,7 @@ export default function AppRoutes() {
       <Route path="/admin/announcements" element={session ? <AdminAnnouncements /> : <Navigate to="/login" />} />
       <Route path="/admin/events" element={session ? <AdminEvents /> : <Navigate to="/login" />} />
       <Route path="/admin/reports" element={session ? <AdminReports /> : <Navigate to="/login" />} />
+      <Route path="/admin/site-settings" element={session ? <AdminSiteSettings /> : <Navigate to="/login" />} />
       <Route path="/leader" element={session ? <TeamLeaderDashboard /> : <Navigate to="/login" />} />
       <Route path="/leader/members" element={session ? <LeaderMembers /> : <Navigate to="/login" />} />
       <Route path="/leader/announcements" element={session ? <LeaderAnnouncements /> : <Navigate to="/login" />} />
