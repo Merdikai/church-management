@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
@@ -133,6 +134,7 @@ const icons: Record<string, React.ReactNode> = {
 
 export default function Sidebar({ isOpen, onClose }: Props) {
   const { role } = useAuth();
+  const { t } = useTranslation();
 
   const links =
     role === 'admin' ? adminLinks :
@@ -154,7 +156,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
 
         {/* Main menu */}
         <div className="sidebar-section">
-          <div className="sidebar-section-title">Main Menu</div>
+          <div className="sidebar-section-title">{t('mainMenu')}</div>
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -164,7 +166,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
               onClick={onClose}
             >
               <span className="sidebar-icon">{icons[link.icon]}</span>
-              <span className="sidebar-label">{link.label}</span>
+              <span className="sidebar-label">{t(link.label)}</span>
               <span className="sidebar-indicator" />
             </NavLink>
           ))}
@@ -172,7 +174,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
 
         {/* Account */}
         <div className="sidebar-section">
-          <div className="sidebar-section-title">Account</div>
+          <div className="sidebar-section-title">{t('account')}</div>
           {sharedLinks.map((link) => (
             <NavLink
               key={link.to}
@@ -182,7 +184,7 @@ export default function Sidebar({ isOpen, onClose }: Props) {
               onClick={onClose}
             >
               <span className="sidebar-icon">{icons[link.icon]}</span>
-              <span className="sidebar-label">{link.label}</span>
+              <span className="sidebar-label">{t(link.label)}</span>
               <span className="sidebar-indicator" />
             </NavLink>
           ))}

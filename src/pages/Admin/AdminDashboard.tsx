@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout/Layout';
 import { useAuth } from '../../context/AuthContext';
 import { getAllMembers } from '../../services/memberService';
@@ -18,6 +19,7 @@ interface Team {
 
 export default function AdminDashboard() {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const fullName = user?.user_metadata?.full_name ?? 'Admin';
   const [members, setMembers] = useState<Member[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
@@ -69,7 +71,7 @@ export default function AdminDashboard() {
       <Layout>
         <div className="admin-page">
           <div className="page-header">
-            <h1>Welcome back, {fullName} 👋</h1>
+            <h1>{t('welcomeBack')}, {fullName} 👋</h1>
           </div>
           <div className="empty-state">
             <div className="empty-icon">
@@ -79,7 +81,7 @@ export default function AdminDashboard() {
             </div>
             <p>Could not load dashboard data</p>
             <button className="btn btn-primary" onClick={() => window.location.reload()}>
-              Refresh Page
+              {t('refresh')}
             </button>
           </div>
         </div>
@@ -94,7 +96,7 @@ export default function AdminDashboard() {
         <div className="page-header">
           <div className="page-header-content">
             <div>
-              <h1>Welcome back, {fullName} 👋</h1>
+              <h1>{t('welcomeBack')}, {fullName} 👋</h1>
               <p>Here's what's happening in your church today.</p>
             </div>
             <div className="page-header-actions">
@@ -102,7 +104,7 @@ export default function AdminDashboard() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="23 4 23 10 17 10" /><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
                 </svg>
-                Refresh
+                {t('refresh')}
               </button>
             </div>
           </div>
@@ -114,13 +116,13 @@ export default function AdminDashboard() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
             </svg>
-            Overview
+            {t('overview')}
           </button>
           <button className={`tab ${activeTab === 'members' ? 'active' : ''}`} onClick={() => setActiveTab('members')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
-            Members
+            {t('members')}
           </button>
         </div>
 
@@ -157,7 +159,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="stat-content">
                   <div className="stat-value">{members.length}</div>
-                  <div className="stat-label">Total Members</div>
+                  <div className="stat-label">{t('totalMembers')}</div>
                 </div>
               </div>
 
@@ -169,7 +171,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="stat-content">
                   <div className="stat-value">{teams.length}</div>
-                  <div className="stat-label">Active Teams</div>
+                  <div className="stat-label">{t('activeTeams')}</div>
                 </div>
               </div>
 
@@ -181,7 +183,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="stat-content">
                   <div className="stat-value">{leaderCount}</div>
-                  <div className="stat-label">Team Leaders</div>
+                  <div className="stat-label">{t('teamLeaders')}</div>
                 </div>
               </div>
 
@@ -193,7 +195,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="stat-content">
                   <div className="stat-value">{newThisMonth}</div>
-                  <div className="stat-label">New This Month</div>
+                  <div className="stat-label">{t('newThisMonth')}</div>
                 </div>
               </div>
             </div>
@@ -201,8 +203,8 @@ export default function AdminDashboard() {
             {/* Teams Overview */}
             <div className="section-card">
               <div className="section-card-header">
-                <h2>Teams Overview</h2>
-                <span className="badge-count">{teams.length} teams</span>
+                <h2>{t('teams')} Overview</h2>
+                <span className="badge-count">{teams.length} {t('teams').toLowerCase()}</span>
               </div>
               <div className="teams-grid">
                 {teams.map((team) => {
@@ -224,23 +226,23 @@ export default function AdminDashboard() {
           /* Members Tab */
           <div className="section-card">
             <div className="section-card-header">
-              <h2>All Members</h2>
+              <h2>{t('members')}</h2>
               <span className="badge-count">{members.length} total</span>
             </div>
             <div className="search-wrapper">
               <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input className="search-bar" placeholder="Search members by name..." value={search} onChange={(e) => handleSearch(e.target.value)} />
+              <input className="search-bar" placeholder={`${t('search')} ${t('members').toLowerCase()}...`} value={search} onChange={(e) => handleSearch(e.target.value)} />
             </div>
             <div className="table-responsive">
               <table className="members-table">
                 <thead>
-                  <tr><th>Member</th><th>Role</th><th>Teams</th><th>Joined</th></tr>
+                  <tr><th>{t('members')}</th><th>{t('roles')}</th><th>{t('teams')}</th><th>Joined</th></tr>
                 </thead>
                 <tbody>
                   {members.length === 0 ? (
-                    <tr><td colSpan={4}><div className="empty-state"><p>No members found</p></div></td></tr>
+                    <tr><td colSpan={4}><div className="empty-state"><p>{t('noData')}</p></div></td></tr>
                   ) : (
                     members.map((member) => (
                       <tr key={member.id}>
