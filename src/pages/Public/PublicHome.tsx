@@ -422,6 +422,13 @@ export default function PublicHome() {
     <a href="mailto:bethelanfoeecmy@gmail.com" className="contact-link">bethelanfoeecmy@gmail.com</a>
   </div>
 </div>
+<div className="contact-card">
+  <div className="contact-card-icon"><IconTelegram /></div>
+  <div className="contact-card-text">
+    <h4>Telegram</h4>
+    <a href="https://t.me/EECMYBethelAnfoCongregation" target="_blank" rel="noopener noreferrer" className="contact-link">@EECMYBethelAnfo</a>
+  </div>
+</div>
 
             {/* Service Times */}
             <div className="service-times">
