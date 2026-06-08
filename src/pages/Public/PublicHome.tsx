@@ -369,7 +369,7 @@ export default function PublicHome() {
             { Icon: IconGift,  latin: 'Sola Gratia',    english: 'Grace Alone',     verse: 'Ephesians 2:8-9',   desc: 'Salvation is a gift of God\'s unmerited favor — we cannot earn it.', color: '#d97706' },
             { Icon: IconCrown, latin: 'Solus Christus', english: 'Christ Alone',    verse: 'Acts 4:12',          desc: 'Jesus Christ is the one mediator between God and humanity.', color: '#dc2626' },
             { Icon: IconStar,  latin: 'Soli Deo Gloria',english: 'Glory to God Alone',verse: 'Romans 11:36',    desc: 'All of life is to be lived for God\'s glory alone.', color: '#7c3aed' },
-          ].map((sola, index) => (
+          ].map((sola) => (
             <div key={sola.latin} className="sola-inline-card" style={{ '--sola-color': sola.color } as React.CSSProperties}>
               <div className="sola-inline-accent" style={{ background: sola.color }} />
               <div className="sola-inline-icon" style={{ background: sola.color + '18', color: sola.color }}>
